@@ -1,5 +1,6 @@
 package com.yasasri.placementpilot.security;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -30,5 +31,34 @@ public class JwtUtil {
                 )
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
+    }
+
+    public String extractEmail(String token) {
+
+        Claims claims =
+                Jwts.parserBuilder()
+                        .setSigningKey(secretKey)
+                        .build()
+                        .parseClaimsJws(token)
+                        .getBody();
+
+        return claims.getSubject();
+    }
+
+    public boolean validateToken(String token) {
+
+        try {
+
+            Jwts.parserBuilder()
+                    .setSigningKey(secretKey)
+                    .build()
+                    .parseClaimsJws(token);
+
+            return true;
+
+        } catch (Exception e) {
+
+            return false;
+        }
     }
 }
