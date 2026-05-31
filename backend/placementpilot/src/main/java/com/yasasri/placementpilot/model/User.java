@@ -2,6 +2,8 @@ package com.yasasri.placementpilot.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -18,4 +20,7 @@ public class User {
     private String email;
 
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<Resume> resumes;
 }
