@@ -9,13 +9,23 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+import com.yasasri.placementpilot.model.User;
+import com.yasasri.placementpilot.repository.UserRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 @Service
 public class ResumeService {
 
     private final ResumeRepository resumeRepository;
+    private final UserRepository userRepository;
 
-    public ResumeService(ResumeRepository resumeRepository) {
+    public ResumeService(
+            ResumeRepository resumeRepository,
+            UserRepository userRepository) {
+
         this.resumeRepository = resumeRepository;
+        this.userRepository = userRepository;
     }
 
     public Resume uploadResume(
@@ -48,6 +58,19 @@ public class ResumeService {
                 new File(filePath);
 
         file.transferTo(destinationFile);
+        Authentication authentication =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication();
+
+        String email =
+                authentication.getName();
+
+        User user =
+                userRepository.findByEmail(email)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "User not found"));
 
         Resume resume =
                 new Resume();
@@ -63,6 +86,7 @@ public class ResumeService {
 
         resume.setUploadedAt(
                 LocalDateTime.now());
+        resume.setUser(user);
 
         return resumeRepository.save(
                 resume);

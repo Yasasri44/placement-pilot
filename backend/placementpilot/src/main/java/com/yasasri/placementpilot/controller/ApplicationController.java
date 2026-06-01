@@ -31,7 +31,7 @@ public class ApplicationController {
 
         return applicationService.getAllApplications();
     }
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public Application getApplicationById(
             @PathVariable Long id) {
 
@@ -57,5 +57,11 @@ public class ApplicationController {
                 .deleteApplication(id);
 
         return "Application deleted successfully";
+    }
+    @GetMapping("/my")
+    public List<Application> getMyApplications() {
+
+        return applicationService
+                .getMyApplications();
     }
 }

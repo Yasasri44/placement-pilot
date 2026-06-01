@@ -8,6 +8,10 @@ import com.yasasri.placementpilot.repository.ApplicationRepository;
 import com.yasasri.placementpilot.repository.ResumeRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import com.yasasri.placementpilot.model.User;
+import com.yasasri.placementpilot.repository.UserRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDate;
 
@@ -16,13 +20,16 @@ public class ApplicationService {
 
     private final ApplicationRepository applicationRepository;
     private final ResumeRepository resumeRepository;
+    private final UserRepository userRepository;
 
     public ApplicationService(
             ApplicationRepository applicationRepository,
-            ResumeRepository resumeRepository) {
+            ResumeRepository resumeRepository,
+            UserRepository userRepository) {
 
         this.applicationRepository = applicationRepository;
         this.resumeRepository = resumeRepository;
+        this.userRepository = userRepository;
     }
 
     public Application createApplication(
@@ -34,6 +41,19 @@ public class ApplicationService {
                         .orElseThrow(() ->
                                 new RuntimeException(
                                         "Resume not found"));
+        Authentication authentication =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication();
+
+        String email =
+                authentication.getName();
+
+        User user =
+                userRepository.findByEmail(email)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "User not found"));
 
         Application application =
                 new Application();
@@ -63,6 +83,7 @@ public class ApplicationService {
 
         application.setResume(
                 resume);
+        application.setUser(user);
 
         return applicationRepository.save(
                 application);
@@ -104,5 +125,24 @@ public class ApplicationService {
 
         applicationRepository.delete(
                 application);
+    }
+    public List<Application> getMyApplications() {
+
+        Authentication authentication =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication();
+
+        String email =
+                authentication.getName();
+
+        User user =
+                userRepository.findByEmail(email)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "User not found"));
+
+        return applicationRepository
+                .findByUserId(user.getId());
     }
 }
