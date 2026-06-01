@@ -1,0 +1,80 @@
+.recent-section {
+
+  margin-top: 30px;
+
+  padding: 30px;
+
+  border-radius: 25px;
+
+  background:
+      rgba(255,255,255,.04);
+
+  border:
+      1px solid
+      rgba(255,255,255,.08);
+}
+
+.recent-header {
+
+  margin-bottom: 25px;
+}
+
+.recent-header h2 {
+
+  color: white;
+}
+
+.application-row {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 20px 0;
+
+  border-bottom:
+      1px solid
+      rgba(255,255,255,.05);
+}
+
+.application-row h3 {
+
+  color: white;
+}
+
+.application-row p {
+
+  color: #94a3b8;
+}
+
+.status-badge {
+
+  padding: 8px 16px;
+
+  border-radius: 999px;
+
+  font-weight: 600;
+}
+
+.applied {
+
+  background: #1d4ed8;
+
+  color: white;
+}
+
+.interview {
+
+  background: #d97706;
+
+  color: white;
+}
+
+.rejected {
+
+  background: #dc2626;
+
+  color: white;
+}
