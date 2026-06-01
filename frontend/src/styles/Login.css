@@ -1,0 +1,164 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #0f172a;
+  overflow: hidden;
+  position: relative;
+  padding: 40px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.brand span {
+  font-size: 3rem;
+}
+
+.hero-section {
+  max-width: 500px;
+  z-index: 2;
+}
+.company-row {
+  margin-top: 30px;
+  color: #94a3b8;
+  font-size: 1rem;
+  letter-spacing: 2px;
+}
+
+.hero-section h1 {
+  font-size: 5rem;
+  font-weight: 900;
+
+  color: white;
+
+  text-shadow:
+    0 0 20px rgba(56,189,248,.5),
+    0 0 40px rgba(139,92,246,.4);
+
+  margin-bottom: 15px;
+}
+.hero-section h2 {
+  font-size: 5rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  color: #cbd5e1;
+  margin-bottom: 30px;
+}
+
+.quote-box {
+  padding: 25px;
+
+  background: rgba(255,255,255,0.08);
+
+  border-left: 5px solid #38bdf8;
+
+  border-radius: 16px;
+
+  font-size: 1.15rem;
+
+  font-style: italic;
+
+  color: #e2e8f0;
+
+  line-height: 1.7;
+}
+
+.login-card {
+  width: 420px;
+  padding: 40px;
+  border-radius: 24px;
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  z-index: 2;
+}
+
+.login-card h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 12px;
+}
+
+.login-card button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  background: #38bdf8;
+  transition: 0.3s;
+}
+
+.login-card button:hover {
+  transform: translateY(-2px);
+}
+
+.register-link {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.register-link span {
+  color: #38bdf8;
+  cursor: pointer;
+}
+
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+}
+
+.glow1 {
+  width: 350px;
+  height: 350px;
+  background: #38bdf8;
+  top: -100px;
+  left: -100px;
+}
+
+.glow2 {
+  width: 350px;
+  height: 350px;
+  background: #8b5cf6;
+  bottom: -100px;
+  right: -100px;
+}
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+.login-card {
+  animation: float 5s ease-in-out infinite;
+}
