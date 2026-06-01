@@ -24,7 +24,7 @@ public class ResumeService {
             throws IOException {
 
         String uploadDir =
-                "uploads/resumes/";
+                "C:/Users/yasas/OneDrive/Desktop/PlacementPilot/backend/placementpilot/uploads/resumes/";
 
         File directory =
                 new File(uploadDir);
@@ -39,11 +39,15 @@ public class ResumeService {
                         + file.getOriginalFilename();
 
         String filePath =
-                uploadDir + fileName;
+                new File(uploadDir, fileName)
+                        .getAbsolutePath();
+        System.out.println("Upload Directory: " + uploadDir);
+        System.out.println("File Path: " + filePath);
+        System.out.println("Working Directory: " + System.getProperty("user.dir"));
+        File destinationFile =
+                new File(filePath);
 
-        file.transferTo(
-                new File(filePath)
-        );
+        file.transferTo(destinationFile);
 
         Resume resume =
                 new Resume();
