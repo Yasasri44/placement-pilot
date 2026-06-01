@@ -7,6 +7,7 @@ import com.yasasri.placementpilot.model.Resume;
 import com.yasasri.placementpilot.repository.ApplicationRepository;
 import com.yasasri.placementpilot.repository.ResumeRepository;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 import java.time.LocalDate;
 
@@ -64,6 +65,44 @@ public class ApplicationService {
                 resume);
 
         return applicationRepository.save(
+                application);
+    }
+    public List<Application> getAllApplications() {
+
+        return applicationRepository.findAll();
+    }
+    public Application getApplicationById(Long id) {
+
+        return applicationRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "Application not found"));
+    }
+    public Application updateStatus(
+            Long id,
+            String status) {
+
+        Application application =
+                applicationRepository.findById(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Application not found"));
+
+        application.setStatus(
+                ApplicationStatus.valueOf(status));
+
+        return applicationRepository.save(
+                application);
+    }
+    public void deleteApplication(Long id) {
+
+        Application application =
+                applicationRepository.findById(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Application not found"));
+
+        applicationRepository.delete(
                 application);
     }
 }
