@@ -2,6 +2,7 @@ package com.yasasri.placementpilot.model;
 
 import com.yasasri.placementpilot.enums.ApplicationStatus;
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDate;
 
@@ -30,10 +31,12 @@ public class Application {
     private String notes;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "resume_id")
     private Resume resume;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
 

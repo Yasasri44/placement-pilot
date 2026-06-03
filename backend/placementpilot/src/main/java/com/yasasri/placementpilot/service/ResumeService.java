@@ -91,4 +91,42 @@ public class ResumeService {
         return resumeRepository.save(
                 resume);
     }
+    public java.util.List<Resume> getMyResumes() {
+
+        Authentication authentication =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication();
+
+        String email =
+                authentication.getName();
+
+        User user =
+                userRepository.findByEmail(email)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "User not found"));
+
+        return resumeRepository
+                .findByUserId(user.getId());
+    }
+    public void deleteResume(Long id) {
+
+        Resume resume =
+                resumeRepository.findById(id)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "Resume not found"));
+
+        File file =
+                new File(
+                        resume.getFilePath());
+
+        if(file.exists()) {
+
+            file.delete();
+        }
+
+        resumeRepository.delete(resume);
+    }
 }

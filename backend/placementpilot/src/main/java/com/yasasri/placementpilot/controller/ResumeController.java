@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/resumes")
@@ -16,8 +17,7 @@ public class ResumeController {
     public ResumeController(
             ResumeService resumeService) {
 
-        this.resumeService =
-                resumeService;
+        this.resumeService = resumeService;
     }
 
     @PostMapping("/upload")
@@ -33,5 +33,20 @@ public class ResumeController {
                 resumeName,
                 file
         );
+    }
+
+    @GetMapping("/my")
+    public List<Resume> getMyResumes() {
+
+        return resumeService.getMyResumes();
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteResume(
+            @PathVariable Long id) {
+
+        resumeService.deleteResume(id);
+
+        return "Resume deleted successfully";
     }
 }

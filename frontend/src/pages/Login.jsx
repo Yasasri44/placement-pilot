@@ -103,9 +103,18 @@ const handleLogin = async () => {
 </button>
 
         <p className="register-link">
-          Don't have an account?
-          <span> Register</span>
-        </p>
+
+  Don't have an account?
+
+  <span
+    onClick={() =>
+      navigate("/register")
+    }
+  >
+    Register
+  </span>
+
+</p>
       </motion.div>
 
     </div>
