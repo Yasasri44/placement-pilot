@@ -14,35 +14,93 @@ import { MdOutlineTrackChanges } from "react-icons/md";
 
 import RecentApplications from "../components/RecentApplications";
 import ApplicationsChart from "../components/ApplicationsChart";
+import { useEffect, useState }
+from "react";
+
+import {
+  getMyApplications
+}
+from "../services/applicationService";
 
 function Dashboard() {
+  const [applications,
+       setApplications] =
+       useState([]);
+       useEffect(() => {
 
-  const stats = [
-    {
-      title: "Applications",
-      value: 12,
-      icon: <HiOutlineDocumentText />,
-      color: "#3b82f6"
-    },
-    {
-      title: "Interviews",
-      value: 3,
-      icon: <MdOutlineTrackChanges />,
-      color: "#f59e0b"
-    },
-    {
-      title: "Offers",
-      value: 1,
-      icon: <HiOutlineTrophy />,
-      color: "#22c55e"
-    },
-    {
-      title: "Rejected",
-      value: 4,
-      icon: <HiOutlineXCircle />,
-      color: "#ef4444"
-    }
-  ];
+  const loadApplications =
+    async () => {
+
+      try {
+
+        const data =
+          await getMyApplications();
+
+        setApplications(data);
+
+      } catch(error) {
+
+        console.log(error);
+      }
+    };
+
+  loadApplications();
+
+}, []);
+const stats = [
+
+  {
+    title: "Applications",
+    value:
+      applications.length,
+    icon:
+      <HiOutlineDocumentText />,
+    color: "#3b82f6"
+  },
+
+  {
+    title: "Interviews",
+    value:
+      applications.filter(
+        app =>
+        app.status ===
+        "INTERVIEW"
+      ).length,
+
+    icon:
+      <MdOutlineTrackChanges />,
+    color: "#f59e0b"
+  },
+
+  {
+    title: "Offers",
+    value:
+      applications.filter(
+        app =>
+        app.status ===
+        "SELECTED"
+      ).length,
+
+    icon:
+      <HiOutlineTrophy />,
+    color: "#22c55e"
+  },
+
+  {
+    title: "Rejected",
+    value:
+      applications.filter(
+        app =>
+        app.status ===
+        "REJECTED"
+      ).length,
+
+    icon:
+      <HiOutlineXCircle />,
+    color: "#ef4444"
+  }
+
+];
 
   return (
     <div className="dashboard-layout">

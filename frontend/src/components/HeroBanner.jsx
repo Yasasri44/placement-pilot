@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import "../styles/HeroBanner.css";
 
+import {
+  getCurrentUser
+} from "../services/userService";
+
 function HeroBanner() {
+
+  const [userName,
+         setUserName] =
+         useState("");
 
   const quotes = [
     "The offer letter you want tomorrow depends on the applications you submit today.",
@@ -10,20 +18,45 @@ function HeroBanner() {
     "Apply today. Celebrate tomorrow."
   ];
 
-  const [quoteIndex, setQuoteIndex] = useState(0);
+  const [quoteIndex,
+         setQuoteIndex] =
+         useState(0);
 
   useEffect(() => {
 
-    const interval = setInterval(() => {
+    const loadUser =
+      async () => {
 
-      setQuoteIndex(
-        (prev) =>
-          (prev + 1) % quotes.length
-      );
+        try {
 
-    }, 5000);
+          const user =
+            await getCurrentUser();
 
-    return () => clearInterval(interval);
+          setUserName(
+            user.name
+          );
+
+        } catch(error) {
+
+          console.log(error);
+        }
+      };
+
+    loadUser();
+
+    const interval =
+      setInterval(() => {
+
+        setQuoteIndex(
+          (prev) =>
+            (prev + 1) %
+            quotes.length
+        );
+
+      }, 5000);
+
+    return () =>
+      clearInterval(interval);
 
   }, []);
 
@@ -34,7 +67,11 @@ function HeroBanner() {
       <div className="hero-content">
 
         <h1>
-          Welcome Back, Yasasri 👋
+          Welcome Back,
+          {" "}
+          {userName}
+          {" "}
+          👋
         </h1>
 
         <p>

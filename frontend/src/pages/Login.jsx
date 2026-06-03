@@ -48,17 +48,16 @@ const handleLogin = async () => {
         transition={{ duration: 0.8 }}
       >
         <div className="brand">
-  <h1>PlacementPilot</h1>
-  <span>🚀</span>
+  <h1>🚀 PlacementPilot</h1>
 </div>
 
-        <h2>
-          Track.
-          <br />
-          Prepare.
-          <br />
-          Get Placed.
-        </h2>
+<h2>
+  Your Placement
+  <br />
+  Journey Starts
+  <br />
+  Here.
+</h2>
 
         <p>
           Every application is one step

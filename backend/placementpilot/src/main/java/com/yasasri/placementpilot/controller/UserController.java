@@ -6,6 +6,7 @@ import com.yasasri.placementpilot.dto.RegisterRequest;
 import com.yasasri.placementpilot.dto.RegisterResponse;
 import com.yasasri.placementpilot.service.UserService;
 import org.springframework.web.bind.annotation.*;
+import com.yasasri.placementpilot.dto.UserResponse;
 
 @RestController
 @RequestMapping("/api/users")
@@ -29,5 +30,10 @@ public class UserController {
             @RequestBody LoginRequest request) {
 
         return userService.login(request);
+    }
+    @GetMapping("/me")
+    public UserResponse getCurrentUser() {
+
+        return userService.getCurrentUser();
     }
 }

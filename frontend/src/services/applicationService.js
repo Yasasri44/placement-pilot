@@ -36,6 +36,44 @@ export const createApplication =
               `Bearer ${token}`
           }
         }
+
+      );
+
+
+    return response.data;
+};
+export const deleteApplication =
+  async (id) => {
+
+    const token =
+      localStorage.getItem("token");
+
+    await api.delete(
+      `/applications/${id}`,
+      {
+        headers: {
+          Authorization:
+            `Bearer ${token}`
+        }
+      }
+    );
+};
+export const updateApplicationStatus =
+  async (id, status) => {
+
+    const token =
+      localStorage.getItem("token");
+
+    const response =
+      await api.put(
+        `/applications/${id}/status?status=${status}`,
+        {},
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`
+          }
+        }
       );
 
     return response.data;

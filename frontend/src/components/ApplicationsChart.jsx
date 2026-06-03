@@ -1,6 +1,6 @@
 import {
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   Tooltip,
@@ -8,24 +8,104 @@ import {
   CartesianGrid
 } from "recharts";
 
+import { useEffect, useState }
+from "react";
+
+import {
+  getMyApplications
+}
+from "../services/applicationService";
+
 import "../styles/ApplicationsChart.css";
 
 function ApplicationsChart() {
 
-  const data = [
-    { month: "Jan", applications: 2 },
-    { month: "Feb", applications: 5 },
-    { month: "Mar", applications: 7 },
-    { month: "Apr", applications: 10 },
-    { month: "May", applications: 12 }
-  ];
+  const [data,
+         setData] =
+         useState([]);
+
+  useEffect(() => {
+
+    const loadData =
+      async () => {
+
+        try {
+
+          const applications =
+            await getMyApplications();
+
+          const chartData = [
+
+            {
+              status: "Applied",
+              count:
+                applications.filter(
+                  app =>
+                  app.status ===
+                  "APPLIED"
+                ).length
+            },
+
+            {
+              status: "OA",
+              count:
+                applications.filter(
+                  app =>
+                  app.status ===
+                  "OA_CLEARED"
+                ).length
+            },
+
+            {
+              status: "Interview",
+              count:
+                applications.filter(
+                  app =>
+                  app.status ===
+                  "INTERVIEW"
+                ).length
+            },
+
+            {
+              status: "Selected",
+              count:
+                applications.filter(
+                  app =>
+                  app.status ===
+                  "SELECTED"
+                ).length
+            },
+
+            {
+              status: "Rejected",
+              count:
+                applications.filter(
+                  app =>
+                  app.status ===
+                  "REJECTED"
+                ).length
+            }
+
+          ];
+
+          setData(chartData);
+
+        } catch(error) {
+
+          console.log(error);
+        }
+      };
+
+    loadData();
+
+  }, []);
 
   return (
 
     <div className="chart-card">
 
       <h2>
-        📈 Application Trends
+        📊 Application Status Overview
       </h2>
 
       <ResponsiveContainer
@@ -33,24 +113,27 @@ function ApplicationsChart() {
         height={300}
       >
 
-        <LineChart data={data}>
+        <BarChart data={data}>
 
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid
+            strokeDasharray="3 3"
+          />
 
-          <XAxis dataKey="month" />
+          <XAxis
+            dataKey="status"
+          />
 
           <YAxis />
 
           <Tooltip />
 
-          <Line
-            type="monotone"
-            dataKey="applications"
-            stroke="#8b5cf6"
-            strokeWidth={4}
+          <Bar
+            dataKey="count"
+            fill="#8b5cf6"
+            radius={[8,8,0,0]}
           />
 
-        </LineChart>
+        </BarChart>
 
       </ResponsiveContainer>
 

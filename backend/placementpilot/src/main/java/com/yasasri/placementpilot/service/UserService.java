@@ -9,6 +9,9 @@ import com.yasasri.placementpilot.repository.UserRepository;
 import com.yasasri.placementpilot.security.JwtUtil;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.yasasri.placementpilot.dto.UserResponse;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Service
 public class UserService {
@@ -72,5 +75,26 @@ public class UserService {
                         user.getEmail());
 
         return new LoginResponse(token);
+    }
+    public UserResponse getCurrentUser() {
+
+        Authentication authentication =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication();
+
+        String email =
+                authentication.getName();
+
+        User user =
+                userRepository.findByEmail(email)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "User not found"));
+
+        return new UserResponse(
+                user.getName(),
+                user.getEmail()
+        );
     }
 }
