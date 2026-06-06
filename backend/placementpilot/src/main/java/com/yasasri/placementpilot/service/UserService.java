@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.yasasri.placementpilot.dto.UserResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import com.yasasri.placementpilot.dto.ChangePasswordRequest;
 
 @Service
 public class UserService {
@@ -96,5 +97,41 @@ public class UserService {
                 user.getName(),
                 user.getEmail()
         );
+    }
+    public String changePassword(
+            ChangePasswordRequest request) {
+
+        Authentication authentication =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication();
+
+        String email =
+                authentication.getName();
+
+        User user =
+                userRepository.findByEmail(email)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "User not found"));
+
+        boolean matched =
+                passwordEncoder.matches(
+                        request.getCurrentPassword(),
+                        user.getPassword());
+
+        if (!matched) {
+
+            throw new RuntimeException(
+                    "Current password is incorrect");
+        }
+
+        user.setPassword(
+                passwordEncoder.encode(
+                        request.getNewPassword()));
+
+        userRepository.save(user);
+
+        return "Password changed successfully";
     }
 }

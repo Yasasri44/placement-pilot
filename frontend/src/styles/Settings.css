@@ -1,0 +1,68 @@
+.settings-page {
+
+  min-height: 100vh;
+
+  padding: 40px;
+
+  background: #020817;
+
+  color: white;
+}
+
+.settings-page h1 {
+
+  margin-bottom: 30px;
+}
+
+.settings-card {
+
+  background:
+    rgba(255,255,255,.05);
+
+  border:
+    1px solid
+    rgba(255,255,255,.08);
+
+  padding: 25px;
+
+  border-radius: 20px;
+
+  margin-bottom: 20px;
+}
+
+.settings-card h2 {
+
+  margin-bottom: 15px;
+
+  color: #8b5cf6;
+}
+
+.settings-btn {
+
+  background: #3b82f6;
+
+  color: white;
+
+  border: none;
+
+  padding: 12px 20px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.logout-btn {
+
+  background: #ef4444;
+
+  color: white;
+
+  border: none;
+
+  padding: 12px 20px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+}

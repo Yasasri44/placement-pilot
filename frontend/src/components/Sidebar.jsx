@@ -54,17 +54,17 @@ return (
 
       <div className="sidebar-extra">
 
-        <a href="#">
-          <HiOutlineUser />
-          Profile
-        </a>
+  <Link to="/profile">
+    <HiOutlineUser />
+    Profile
+  </Link>
 
-        <a href="#">
-          <HiOutlineCog6Tooth />
-          Settings
-        </a>
+  <Link to="/settings">
+    <HiOutlineCog6Tooth />
+    Settings
+  </Link>
 
-      </div>
+</div>
 
     </div>
     <div className="motivation-mini">

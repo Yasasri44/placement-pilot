@@ -7,6 +7,7 @@ import com.yasasri.placementpilot.dto.RegisterResponse;
 import com.yasasri.placementpilot.service.UserService;
 import org.springframework.web.bind.annotation.*;
 import com.yasasri.placementpilot.dto.UserResponse;
+import com.yasasri.placementpilot.dto.ChangePasswordRequest;
 
 @RestController
 @RequestMapping("/api/users")
@@ -35,5 +36,13 @@ public class UserController {
     public UserResponse getCurrentUser() {
 
         return userService.getCurrentUser();
+    }
+    @PutMapping("/change-password")
+    public String changePassword(
+            @RequestBody
+            ChangePasswordRequest request) {
+
+        return userService
+                .changePassword(request);
     }
 }

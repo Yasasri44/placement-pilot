@@ -9,6 +9,8 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Applications from "./pages/Applications";
 import Resumes from "./pages/Resumes";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 
 function App() {
   return (
@@ -40,8 +42,19 @@ function App() {
           path="/resumes"
           element={<Resumes />}
         />
+        <Route
+  path="/profile"
+  element={<Profile />}
+/>
+
+<Route
+  path="/settings"
+  element={<Settings />}
+/>
 
       </Routes>
+
+      
 
     </BrowserRouter>
   );
